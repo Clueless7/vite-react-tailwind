@@ -7,11 +7,26 @@ import ErrorModal from '../UI/ErrorModal'
 function AddUser({ onAddUser }) {
   const [username, setUsername] = useState('')
   const [age, setAge] = useState('')
+  const [error, setError] = useState()
 
   const addUserHandler = (e) => {
     e.preventDefault()
 
-    if (username.trim().length === 0 || age.trim().length === 0 || +age < 1) {
+    if (username.trim().length === 0 || age.trim().length === 0) {
+      setError({
+        title: 'Invalid input',
+        message: 'Please enter a valid name and age (non-empty values).',
+      })
+
+      return
+    }
+
+    if (+age < 1) {
+      setError({
+        title: 'Invalid age',
+        message: 'Please enter a valid age (> 0).',
+      })
+
       return
     }
 
@@ -28,9 +43,19 @@ function AddUser({ onAddUser }) {
     setAge(e.target.value)
   }
 
+  const onHandleError = () => {
+    setError(null)
+  }
+
   return (
     <>
-      <ErrorModal title="Error" message="this is an error modal" />
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          closeModal={onHandleError}
+        />
+      )}
       <Card>
         <form
           className="flex flex-col gap-4 justify-around "

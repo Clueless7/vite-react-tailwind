@@ -11,7 +11,7 @@ function UsersList({ users }) {
       <ul>
         {users.map((user, index) => {
           return (
-            <Card key={index} className="px-4 py-2 shadow-sm mb-1">
+            <Card key={index} className="px-4 py-2 mb-1">
               <li>
                 <span className="font-medium ">{user.username}</span>
                 <span className="font-thin"> ({user.age} years old)</span>
