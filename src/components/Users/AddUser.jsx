@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRef } from 'react'
 import { useState } from 'react'
 import Button from '../UI/Button'
 import Card from '../UI/Card'
@@ -7,7 +8,8 @@ import ErrorModal from '../UI/ErrorModal'
 function AddUser({ onAddUser }) {
   const [username, setUsername] = useState('')
   const [age, setAge] = useState('')
-  const [error, setError] = useState()
+  const [error, setError] = useState(null)
+  const usernameRef = useRef()
 
   const addUserHandler = (e) => {
     e.preventDefault()
@@ -33,6 +35,7 @@ function AddUser({ onAddUser }) {
     onAddUser(username, age)
     setUsername('')
     setAge('')
+    usernameRef.current.focus()
   }
 
   const usernameChangeHandler = (e) => {
@@ -68,6 +71,7 @@ function AddUser({ onAddUser }) {
             type="text"
             value={username}
             onChange={usernameChangeHandler}
+            ref={usernameRef}
           />
           <label htmlFor="age">Age (years):</label>
           <input
