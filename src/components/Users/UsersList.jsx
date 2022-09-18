@@ -9,16 +9,14 @@ function UsersList({ users }) {
   return (
     <Card>
       <ul>
-        {users.map((user, index) => {
-          return (
-            <Card key={index} className="px-4 py-2 mb-1">
-              <li>
-                <span className="font-medium ">{user.username}</span>
-                <span className="font-thin"> ({user.age} years old)</span>
-              </li>
-            </Card>
-          )
-        })}
+        {users.map((user, index) => (
+          <Card key={index} className="px-4 py-2 mb-1 animate-fade-in">
+            <li>
+              <span className="font-medium ">{user.username}</span>
+              <span className="font-thin"> ({user.age} years old)</span>
+            </li>
+          </Card>
+        ))}
       </ul>
     </Card>
   )
