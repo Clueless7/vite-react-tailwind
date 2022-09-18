@@ -6,7 +6,7 @@ function ErrorModal({ title, message, closeModal }) {
   return (
     <div
       onClick={closeModal}
-      className="p-4 fixed top-0 left-0 w-screen h-screen bg-slate-500/80 grid place-items-center"
+      className="p-4 fixed top-0 left-0 w-screen h-screen bg-slate-500/80 grid place-items-center animate-fade-in"
     >
       <Card
         onClick={(e) => e.stopPropagation()}
