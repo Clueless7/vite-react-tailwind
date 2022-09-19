@@ -1,20 +1,20 @@
-import React from 'react'
-import { useRef } from 'react'
-import { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Button from '../UI/Button'
 import Card from '../UI/Card'
 import ErrorModal from '../UI/ErrorModal'
 
 function AddUser({ onAddUser }) {
-  const [username, setUsername] = useState('')
-  const [age, setAge] = useState('')
   const [error, setError] = useState(null)
   const usernameRef = useRef()
+  const ageRef = useRef()
 
   const addUserHandler = (e) => {
     e.preventDefault()
 
-    if (username.trim().length === 0 || age.trim().length === 0) {
+    if (
+      usernameRef.current.value.trim().length === 0 ||
+      ageRef.current.value.trim().length === 0
+    ) {
       setError({
         title: 'Invalid input',
         message: 'Please enter a valid name and age (non-empty values).',
@@ -23,7 +23,7 @@ function AddUser({ onAddUser }) {
       return
     }
 
-    if (+age < 1) {
+    if (+ageRef < 1) {
       setError({
         title: 'Invalid age',
         message: 'Please enter a valid age (> 0).',
@@ -32,18 +32,10 @@ function AddUser({ onAddUser }) {
       return
     }
 
-    onAddUser(username, age)
-    setUsername('')
-    setAge('')
+    onAddUser(usernameRef.current.value, ageRef.current.value)
     usernameRef.current.focus()
-  }
-
-  const usernameChangeHandler = (e) => {
-    setUsername(e.target.value)
-  }
-
-  const ageChangeHandler = (e) => {
-    setAge(e.target.value)
+    usernameRef.current.value = ''
+    ageRef.current.value = ''
   }
 
   const onHandleError = () => {
@@ -69,8 +61,6 @@ function AddUser({ onAddUser }) {
             className="px-2 py-1 focus:outline-none rounded border border-cyan-500 text-gray-500"
             id="username"
             type="text"
-            value={username}
-            onChange={usernameChangeHandler}
             ref={usernameRef}
           />
           <label htmlFor="age">Age (years):</label>
@@ -78,8 +68,7 @@ function AddUser({ onAddUser }) {
             className="px-2 py-1 focus:outline-none rounded border border-cyan-500 text-gray-500"
             id="age"
             type="number"
-            value={age}
-            onChange={ageChangeHandler}
+            ref={ageRef}
           />
           <Button primary type={'submit'}>
             Add user
